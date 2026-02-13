@@ -1,0 +1,23 @@
+version: 2
+format_version: 2
+tasks:
+  - id: T001
+    status: completed
+    created: "2024-01-01"
+    completed: "2024-01-02"
+    github:
+      issue_url: https://github.com/user/repo/issues/1
+      issue_number: 1
+      pr_url: https://github.com/user/repo/pull/2
+      pr_number: 2
+      branch: feature/T001-initial-setup
+  - id: T002
+    status: in_progress
+    created: "2024-01-02"
+    github:
+      issue_url: https://github.com/user/repo/issues/3
+      issue_number: 3
+      branch: feature/T002-validator-implementation
+  - id: BUG-003
+    status: pending
+    created: "2024-01-03"

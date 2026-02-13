@@ -1,0 +1,11 @@
+version: 1
+
+rules:
+  - "Every task must define verification."
+  - "For code tasks: prefer a failing test before the fix when feasible."
+  - "Minimum for code tasks: happy path + one edge case + one failure case."
+  - "For non-code tasks: provide manual verifiers with expected results."
+
+report_requires_one_of:
+  - tests_added_or_updated
+  - manual_verifiers

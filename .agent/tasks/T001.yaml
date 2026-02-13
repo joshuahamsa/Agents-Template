@@ -1,0 +1,21 @@
+task_id: T001
+title: Initial Setup
+goal: Set up the basic repository structure
+context: |
+  This task establishes the foundation for the agent system,
+  including directory structure and basic contracts.
+inputs:
+  - Repository root
+  - AGENTS.md specification
+outputs:
+  - Directory structure
+  - Contract files
+  - Validation scripts
+acceptance_criteria:
+  - All required directories exist
+  - Contract files are valid YAML
+  - Scripts can be executed
+routing:
+  playbook: docs/agents/playbooks/_template.md
+  contracts:
+    - docs/agents/contracts/task.contract.yaml

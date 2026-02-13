@@ -1,0 +1,104 @@
+version: 1
+
+scope:
+  applies_to: code_tasks_only
+  triggers_on: task_completion
+  auto_execute: true
+
+required_fields_in_report:
+  - task_id
+  - status
+  - summary
+  - acceptance_criteria_results
+  - files_modified
+  - verification
+
+automation_level: full
+
+github_artifacts:
+  issue:
+    create_if_missing: true
+    template: .github/ISSUE_TEMPLATE/agent_task.md
+    labels:
+      - agent-task
+      - automation
+    title_format: "[{task_id}] {task_title}"
+    
+  pull_request:
+    create: true
+    template: .github/PULL_REQUEST_TEMPLATE.md
+    branch_prefix: feature/
+    auto_assign_reviewers: true
+    commit_style: conventional
+    
+  project_board:
+    enabled: false  # Off by default, set GITHUB_PROJECT_NUMBER to enable
+    add_issue: true
+    set_status: "In Review"
+
+post_completion_steps:
+  - validate_git_auth
+  - create_or_update_issue
+  - create_branch
+  - commit_changes
+  - push_branch
+  - create_pull_request
+  - update_project_board
+  - run_extended_ci
+  - update_agent_ledger
+
+branch_naming:
+  prefix: feature/
+  format: "{prefix}{task_id}-{short_description}"
+  max_length: 50
+  separator: "-"
+
+commit_conventions:
+  types:
+    - feat      # New feature
+    - fix       # Bug fix
+    - docs      # Documentation
+    - style     # Formatting
+    - refactor  # Code restructuring
+    - test      # Adding tests
+    - chore     # Maintenance
+  format: "{type}({scope}): {description}"
+  max_line_length: 72
+  body_required: false
+  footer_closes_issue: true
+
+error_handling:
+  on_auth_failure: prompt_user_for_token
+  on_api_error: log_and_continue_with_warning
+  on_partial_failure: create_comment_with_details
+  on_rate_limit: exponential_backoff_retry
+
+required_permissions:
+  - contents:write      # Push branches, create commits
+  - issues:write        # Create/update issues
+  - pull_requests:write # Create PRs
+  - workflows:read      # Trigger workflow runs
+
+optional_permissions:
+  - projects:write      # Only if project board enabled
+
+environment_variables:
+  required:
+    - GITHUB_TOKEN      # Or authenticated gh CLI
+  optional:
+    - GITHUB_PROJECT_NUMBER
+    - GITHUB_REPOSITORY # Defaults to detected remote
+    - GITHUB_ACTOR      # Defaults to detected user
+
+skip_conditions:
+  - no_git_changes
+  - user_opt_out
+  - ci_mode_without_token
+
+outputs:
+  - issue_url
+  - issue_number
+  - pull_request_url
+  - pull_request_number
+  - branch_name
+  - commit_sha

@@ -1,0 +1,12 @@
+version: 1
+
+required_for_data_tasks:
+  - input_formats
+  - output_formats
+  - schema_expectations
+  - determinism
+
+rules:
+  - "Fail gracefully on malformed input."
+  - "Provide sample inputs/outputs."
+  - "Avoid nondeterministic outputs unless explicitly required."

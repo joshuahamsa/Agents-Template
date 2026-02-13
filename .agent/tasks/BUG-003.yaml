@@ -1,0 +1,19 @@
+task_id: BUG-003
+title: Fix Type Errors
+goal: Resolve type checking issues in validation scripts
+context: |
+  The validate_agent_report.py script has type errors
+  related to Optional types and len() calls.
+inputs:
+  - scripts/validate_agent_report.py
+  - Type checker output
+outputs:
+  - Fixed type errors
+acceptance_criteria:
+  - All type errors resolved
+  - Script functionality preserved
+  - Tests pass
+routing:
+  playbook: docs/agents/playbooks/debugging.md
+  contracts:
+    - docs/agents/contracts/validation.contract.yaml

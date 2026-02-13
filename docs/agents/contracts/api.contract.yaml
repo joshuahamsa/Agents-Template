@@ -1,0 +1,13 @@
+version: 1
+
+required_for_api_tasks:
+  - endpoints
+  - auth
+  - request_schema
+  - response_schema
+  - error_handling
+
+rules:
+  - "Never log secrets."
+  - "Handle auth expiry explicitly."
+  - "Define retry/backoff behavior for transient errors."

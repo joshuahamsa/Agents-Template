@@ -1,0 +1,13 @@
+version: 1
+
+definition_of_done:
+  - "Acceptance criteria are evaluated with pass/fail."
+  - "Verification steps are listed with evidence."
+  - "If automated verification not possible, manual verifiers provided."
+
+acceptable_evidence_types:
+  - "test output"
+  - "lint output"
+  - "typecheck output"
+  - "sample input/output"
+  - "manual checklist"

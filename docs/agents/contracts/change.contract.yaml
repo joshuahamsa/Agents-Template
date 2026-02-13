@@ -1,0 +1,13 @@
+version: 1
+
+rules:
+  - "Keep diffs minimal and scoped."
+  - "No unrelated refactors."
+  - "Prefer additive changes over rewrites."
+  - "If rewrite is necessary, isolate it and document behavior changes."
+
+required_change_summary_fields:
+  - why
+  - what_changed
+  - how_to_validate
+  - risks

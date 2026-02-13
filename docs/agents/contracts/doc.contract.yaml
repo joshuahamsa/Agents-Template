@@ -1,0 +1,11 @@
+version: 1
+
+required_for_doc_tasks:
+  - audience
+  - goal
+  - structure
+  - examples
+
+rules:
+  - "Examples must be copy/pasteable."
+  - "Terminology must be consistent."

@@ -1,0 +1,23 @@
+task_id: T002
+title: Validator Implementation
+goal: Create validation scripts for agent artifacts
+context: |
+  Implement Python scripts that validate tasks and reports
+  against their respective contracts.
+inputs:
+  - Contract specifications
+  - Sample task/report files
+outputs:
+  - validate_agent_task.py
+  - validate_agent_report.py
+  - validate_agent_linkage.py
+acceptance_criteria:
+  - Scripts validate YAML structure
+  - Scripts check required fields
+  - Scripts return proper exit codes
+routing:
+  playbook: docs/agents/playbooks/python.md
+  contracts:
+    - docs/agents/contracts/task.contract.yaml
+    - docs/agents/contracts/report.contract.yaml
+    - docs/agents/contracts/validation.contract.yaml

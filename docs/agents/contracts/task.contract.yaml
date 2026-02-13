@@ -1,0 +1,24 @@
+version: 1
+
+required_fields:
+  - task_id
+  - title
+  - goal
+  - context
+  - inputs
+  - outputs
+  - acceptance_criteria
+  - routing
+
+enums:
+  # Optional, but handy if you later add priority/status to tasks.
+  # priority: [low, medium, high]
+
+constraints:
+  context_max_lines: 10
+  acceptance_criteria_min_items: 1
+
+routing:
+  required_fields:
+    - playbook
+    - contracts

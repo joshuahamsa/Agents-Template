@@ -1,0 +1,180 @@
+# AGENTS.md
+
+## 1. Repo Purpose
+<2–5 sentence description of what this repository does and who it serves.>
+
+## 2. Repository Map
+- src/        → application source code
+- tests/      → automated tests
+- docs/       → documentation
+- scripts/    → tooling & utilities
+- .github/    → CI workflows
+
+## 3. Global Invariants (Always True)
+- Tasks MUST be decomposed into smallest independently testable units.
+- Sub-agents MUST define acceptance criteria before implementation.
+- No secrets in code or logs.
+- Prefer minimal diffs over large rewrites.
+- Behavior changes require updated tests and documentation.
+- Never paste full files unless explicitly required — use diffs or excerpts.
+
+## 4. Default Execution Protocol
+
+1. Restate task in ≤ 5 lines.
+2. Decompose into smallest coherent subtasks.
+3. For each subtask:
+   - Define acceptance criteria ("tests").
+   - Implement.
+   - Verify.
+   - Report results.
+4. Keep master context lean:
+   - Store only decisions, outputs, and next steps.
+   - Avoid conversational drift.
+
+## 5. Routing Table
+
+| Task Type | Playbook |
+|-----------|----------|
+| Python implementation | docs/agents/playbooks/python.md |
+| TypeScript / JS | docs/agents/playbooks/typescript.md |
+| CI / GitHub Actions | docs/agents/playbooks/ci-cd.md |
+| Documentation | docs/agents/playbooks/docs.md |
+| Debugging | docs/agents/playbooks/debugging.md |
+| Security / Auth | docs/agents/playbooks/security.md |
+| GitHub Integration | docs/agents/playbooks/github-integration.md |
+
+Agents MUST load only the relevant playbook.
+
+## 6. Definition of Done (Universal)
+- Acceptance criteria met
+- Tests/verifiers pass
+- Diff summary provided
+- Risks noted
+- Next subtasks identified (if applicable)
+
+## 7. Context Budget Rule
+- Task recap ≤ 10 lines
+- Do not paste large files
+- Use path references + diffs
+- Summaries over repetition
+
+## Contract Loading Rule
+Agents MUST load only the contracts needed for the task.
+
+Default contracts:
+- docs/agents/contracts/task.contract.yaml
+- docs/agents/contracts/report.contract.yaml
+- docs/agents/contracts/test.contract.yaml
+
+Domain contracts are optional and task-specific.
+
+## 8. Code Task Completion Protocol (GitHub Integration)
+
+All code tasks MUST complete GitHub integration after verification passes.
+
+### Automated Workflow
+
+Run the GitHub integrator immediately after completing a code task:
+
+```bash
+python scripts/github_integrator.py {task_id}
+```
+
+This single command will:
+
+1. **Authentication Check** - Verifies `gh` CLI auth or `GITHUB_TOKEN` env var
+2. **Issue Management** - Creates/updates GitHub Issue with task details
+3. **Branch Creation** - Creates `feature/{task_id}-{description}` branch
+4. **Commit Changes** - Uses conventional commit format
+5. **Push & PR** - Pushes branch and creates Pull Request
+6. **Auto-Review** - Requests CODEOWNERS review
+7. **Ledger Update** - Records GitHub URLs in `.agent/ledger.yaml`
+
+### GitHub Artifacts Required
+
+- [ ] **Issue**: `[{task_id}] {task_title}` with acceptance criteria
+- [ ] **Branch**: `feature/{task_id}-{short-description}`
+- [ ] **Commit**: Conventional commit format (`feat:`, `fix:`, etc.)
+- [ ] **PR**: Links to issue, includes verification steps
+- [ ] **Reviewers**: CODEOWNERS auto-assigned
+- [ ] **CI**: Running on PR
+
+### First Time Setup
+
+If GitHub integration fails due to missing authentication:
+
+```bash
+# Option 1: Use GitHub CLI (recommended)
+gh auth login
+
+# Option 2: Set token
+export GITHUB_TOKEN=ghp_your_token_here
+# Create at: https://github.com/settings/tokens
+# Required scopes: repo, workflow
+```
+
+Verify authentication:
+```bash
+python scripts/check_github_auth.py --verbose
+```
+
+### Skip Integration
+
+To complete a task without GitHub integration:
+
+```bash
+python scripts/github_integrator.py T001 --skip-pr
+```
+
+This creates the Issue only (no PR). Useful for tracking tasks that don't need code changes.
+
+### CI/CD Integration
+
+The workflow `.github/workflows/post-task-integration.yml` automatically:
+- Detects task IDs from branch names
+- Runs integration in CI mode
+- Validates ledger updates
+- Posts status comments on PRs
+
+Triggers on:
+- Push to `feature/*` branches
+- Pull request events
+
+### Manual Override
+
+If automation fails, create artifacts manually:
+
+```bash
+# Create branch
+git checkout -b feature/T001-description
+
+# Commit with conventional format
+git commit -m "feat(T001): add user authentication"
+
+# Push and create PR manually
+git push -u origin feature/T001-description
+gh pr create --title "[T001] Task Title" --body "Closes #{issue}"
+
+# Update ledger manually
+```
+
+### Success Criteria
+
+A code task is only complete when:
+- ✅ All acceptance criteria verified
+- ✅ GitHub Issue exists with task ID
+- ✅ PR created linking to issue
+- ✅ Branch pushed to remote
+- ✅ CODEOWNERS assigned
+- ✅ CI passing
+- ✅ Ledger updated with GitHub refs
+
+### Related Files
+
+- **Playbook**: `docs/agents/playbooks/github-integration.md`
+- **Contract**: `docs/agents/contracts/github-integration.contract.yaml`
+- **Integrator**: `scripts/github_integrator.py`
+- **Auth Check**: `scripts/check_github_auth.py`
+- **Workflow**: `.github/workflows/post-task-integration.yml`
+- **PR Template**: `.github/PULL_REQUEST_TEMPLATE.md`
+- **Issue Template**: `.github/ISSUE_TEMPLATE/agent_task.md`
