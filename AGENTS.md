@@ -91,11 +91,12 @@ same report format and validation steps.
 
 ## 10. Code Task Completion Protocol (GitHub Integration)
 
-All code tasks MUST complete GitHub integration after verification passes.
+All code changes MUST complete GitHub integration before declaring the run done.
+You may integrate per-task or batch multiple tasks into a single PR.
 
-### Automated Workflow
+### Automated Workflow (Per-Task)
 
-Run the GitHub integrator immediately after completing a code task:
+Run the GitHub integrator after completing a code task:
 
 ```bash
 python .instructions/scripts/github_integrator.py {task_id}
@@ -137,6 +138,25 @@ export GITHUB_TOKEN=ghp_your_token_here
 Verify authentication:
 ```bash
 python .instructions/scripts/check_github_auth.py --verbose
+```
+
+### Batch Integration (Manual, Doc-Only)
+
+Use this when you want a single PR/commit for multiple task reports.
+
+1. Ensure every subtask has a validated report.
+2. Create a single branch for the batch.
+3. Commit once for all changes.
+4. Create one PR and list all task IDs in the PR body.
+5. Update `.agent/ledger.yaml` entries for each task.
+
+Manual steps:
+```bash
+git checkout -b feature/BATCH-001-description
+git add .
+git commit -m "chore(BATCH-001): batch task integration"
+git push -u origin feature/BATCH-001-description
+gh pr create --title "[BATCH-001] Batch task integration" --body "Includes: T001, T002, BUG-003"
 ```
 
 ### Skip Integration
@@ -181,10 +201,10 @@ gh pr create --title "[T001] Task Title" --body "Closes #{issue}"
 
 ### Success Criteria
 
-A code task is only complete when:
+A run is only complete when:
 - ✅ All acceptance criteria verified
-- ✅ GitHub Issue exists with task ID
-- ✅ PR created linking to issue
+- ✅ GitHub Issue exists for the task or batch
+- ✅ PR created linking to the issue(s)
 - ✅ Branch pushed to remote
 - ✅ CODEOWNERS assigned
 - ✅ CI passing

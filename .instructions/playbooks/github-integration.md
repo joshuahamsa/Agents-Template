@@ -2,7 +2,7 @@
 
 ## When To Use
 
-**AFTER** completing any code task and passing verification.
+After completing a code task (per-task) or after finalizing a batch of tasks.
 
 This playbook orchestrates the automated creation of GitHub Issues, Pull Requests, and project board updates to maintain full traceability.
 
@@ -21,7 +21,7 @@ This playbook orchestrates the automated creation of GitHub Issues, Pull Request
   - `python .instructions/scripts/validate_agent_report.py .agent/reports/`
   - `python .instructions/scripts/validate_agent_linkage.py`
 
-## Quick Start
+## Quick Start (Per-Task)
 
 ```bash
 # Run after task completion
@@ -216,6 +216,24 @@ When running in GitHub Actions (CI=true):
 - Non-interactive (fails if no auth)
 - Creates PRs but doesn't prompt
 - Logs all actions for debugging
+
+## Batch Integration (Manual, Doc-Only)
+
+Use this when you want a single PR/commit for multiple task reports.
+
+1. Ensure every subtask has a validated report.
+2. Create a single branch for the batch.
+3. Commit once for all changes.
+4. Create one PR and list all task IDs in the PR body.
+5. Update `.agent/ledger.yaml` entries for each task.
+
+```bash
+git checkout -b feature/BATCH-001-description
+git add .
+git commit -m "chore(BATCH-001): batch task integration"
+git push -u origin feature/BATCH-001-description
+gh pr create --title "[BATCH-001] Batch task integration" --body "Includes: T001, T002, BUG-003"
+```
 
 ## Manual Override
 

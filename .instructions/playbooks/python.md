@@ -43,6 +43,10 @@
 
 After implementation and verification pass, complete GitHub integration:
 
+- Per-task: run the integrator immediately.
+- Batch: defer integration and use the batch steps in
+  `.instructions/playbooks/github-integration.md`.
+
 ### Automated Steps
 ```bash
 # Run GitHub integrator (handles auth, issue, PR creation)

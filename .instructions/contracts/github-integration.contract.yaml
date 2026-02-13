@@ -2,8 +2,12 @@ version: 1
 
 scope:
   applies_to: code_tasks_only
-  triggers_on: task_completion
-  auto_execute: true
+  triggers_on: task_completion_or_batch_finalize
+  auto_execute: false
+
+modes:
+  - per_task
+  - batch
 
 required_fields_in_report:
   - task_id

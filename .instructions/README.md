@@ -27,6 +27,10 @@ Sub-agents:
    - `python .instructions/scripts/validate_agent_report.py .agent/reports/`
    - `python .instructions/scripts/validate_agent_linkage.py`
 
+## Batch Integration (Optional)
+If you want a single PR/commit for multiple tasks, follow the batch steps in
+`.instructions/playbooks/github-integration.md`.
+
 ## Worked Example (Skeleton)
 
 Task file: `.agent/tasks/T010.yaml`
