@@ -12,6 +12,15 @@ This playbook orchestrates the automated creation of GitHub Issues, Pull Request
 - Changes staged or committed locally
 - GitHub write access available
 
+## Sub-Agent Output
+- Return ONLY the structured output format in the template
+  `.instructions/templates/subagent_prompt.md`
+- No conversational filler
+- Master agent copies output into `.agent/reports/{task_id}.report.yaml`
+- Validate with:
+  - `python .instructions/scripts/validate_agent_report.py .agent/reports/`
+  - `python .instructions/scripts/validate_agent_linkage.py`
+
 ## Quick Start
 
 ```bash

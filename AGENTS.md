@@ -31,7 +31,20 @@
    - Store only decisions, outputs, and next steps.
    - Avoid conversational drift.
 
-## 5. Routing Table
+## 5. Sub-Agent Delegation Protocol
+
+1. Create a task file in `.agent/tasks/` using the task contract.
+2. Keep `context` to 10 lines or fewer.
+3. Choose the playbook and contracts for the subtask.
+4. Dispatch a sub-agent using `.instructions/templates/subagent_prompt.md`.
+5. Sub-agent returns ONLY the structured output format (no extra prose).
+6. Copy the output into `.agent/reports/{task_id}.report.yaml`.
+7. Validate artifacts:
+   - `python .instructions/scripts/validate_agent_task.py .agent/tasks/`
+   - `python .instructions/scripts/validate_agent_report.py .agent/reports/`
+   - `python .instructions/scripts/validate_agent_linkage.py`
+
+## 6. Routing Table
 
 | Task Type | Playbook |
 |-----------|----------|
@@ -45,14 +58,14 @@
 
 Agents MUST load only the relevant playbook.
 
-## 6. Definition of Done (Universal)
+## 7. Definition of Done (Universal)
 - Acceptance criteria met
 - Tests/verifiers pass
 - Diff summary provided
 - Risks noted
 - Next subtasks identified (if applicable)
 
-## 7. Context Budget Rule
+## 8. Context Budget Rule
 - Task recap ≤ 10 lines
 - Do not paste large files
 - Use path references + diffs
@@ -68,7 +81,15 @@ Default contracts:
 
 Domain contracts are optional and task-specific.
 
-## 8. Code Task Completion Protocol (GitHub Integration)
+## 9. Runtime Notes (Platform Appendix)
+
+### OpenCode
+If the `Task` tool is available, use it to spawn sub-agents with the template
+in `.instructions/templates/subagent_prompt.md`. If the tool is not available,
+run the subtask in a separate session (or manual worker) and still require the
+same report format and validation steps.
+
+## 10. Code Task Completion Protocol (GitHub Integration)
 
 All code tasks MUST complete GitHub integration after verification passes.
 

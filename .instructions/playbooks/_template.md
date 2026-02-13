@@ -86,3 +86,6 @@ Risks:
 Next Steps:
 
 No conversational filler.
+Master agent copies output into `.agent/reports/{task_id}.report.yaml` and validates:
+- `python .instructions/scripts/validate_agent_report.py .agent/reports/`
+- `python .instructions/scripts/validate_agent_linkage.py`
