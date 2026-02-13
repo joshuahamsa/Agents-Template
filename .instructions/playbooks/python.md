@@ -37,7 +37,7 @@ After implementation and verification pass, complete GitHub integration:
 ### Automated Steps
 ```bash
 # Run GitHub integrator (handles auth, issue, PR creation)
-python scripts/github_integrator.py {task_id}
+python .instructions/scripts/github_integrator.py {task_id}
 ```
 
 This will:
@@ -93,4 +93,4 @@ export GITHUB_TOKEN=ghp_your_token_here
 # Required scopes: repo, workflow
 ```
 
-See full details: `docs/agents/playbooks/github-integration.md`
+See full details: `.instructions/playbooks/github-integration.md`

@@ -3,10 +3,10 @@ name: Validate Agent Artifacts
 on:
   pull_request:
     paths:
-      - "docs/agents/contracts/**/*.yaml"
+      - ".instructions/contracts/**/*.yaml"
       - ".agent/**/*.yaml"
-      - "scripts/validate_agent_*.py"
-      - ".github/workflows/validate-agent-artifacts.yml"
+      - ".instructions/scripts/validate_agent_*.py"
+      - ".instructions/workflows/validate-agent-artifacts.yml"
 
 permissions:
   contents: read
@@ -28,4 +28,4 @@ jobs:
 
       - name: Validate reports
         run: |
-          python scripts/validate_agent_report.py .agent/reports/
+          python .instructions/scripts/validate_agent_report.py .agent/reports/

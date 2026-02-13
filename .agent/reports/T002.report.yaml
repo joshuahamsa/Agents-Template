@@ -19,16 +19,16 @@ changes_made:
   - Added type hints
   - Implemented error handling
 files_modified:
-  - path: scripts/validate_agent_task.py
+  - path: .instructions/scripts/validate_agent_task.py
     description: Task validation script
-  - path: scripts/validate_agent_report.py
+  - path: .instructions/scripts/validate_agent_report.py
     description: Report validation script
-  - path: scripts/validate_agent_linkage.py
+  - path: .instructions/scripts/validate_agent_linkage.py
     description: Linkage validation script
 verification:
   commands_run:
-    - python scripts/validate_agent_task.py --help
-    - python scripts/validate_agent_report.py --help
+    - python .instructions/scripts/validate_agent_task.py --help
+    - python .instructions/scripts/validate_agent_report.py --help
   results:
     - Scripts execute without errors
     - Help text displayed

@@ -18,15 +18,15 @@ automation_level: full
 github_artifacts:
   issue:
     create_if_missing: true
-    template: .github/ISSUE_TEMPLATE/agent_task.md
+    template: .instructions/templates/agent_task.md
     labels:
       - agent-task
       - automation
     title_format: "[{task_id}] {task_title}"
-    
+
   pull_request:
     create: true
-    template: .github/PULL_REQUEST_TEMPLATE.md
+    template: .instructions/templates/PULL_REQUEST_TEMPLATE.md
     branch_prefix: feature/
     auto_assign_reviewers: true
     commit_style: conventional

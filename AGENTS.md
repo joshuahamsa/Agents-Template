@@ -4,11 +4,11 @@
 <2–5 sentence description of what this repository does and who it serves.>
 
 ## 2. Repository Map
-- src/        → application source code
-- tests/      → automated tests
-- docs/       → documentation
-- scripts/    → tooling & utilities
-- .github/    → CI workflows
+- src/              → application source code
+- tests/            → automated tests
+- .instructions/    → agent system (playbooks, contracts, scripts)
+- .github/          → GitHub-specific config (CODEOWNERS, minimal)
+- .agent/           → task tracking (tasks, reports, ledger)
 
 ## 3. Global Invariants (Always True)
 - Tasks MUST be decomposed into smallest independently testable units.
@@ -35,13 +35,13 @@
 
 | Task Type | Playbook |
 |-----------|----------|
-| Python implementation | docs/agents/playbooks/python.md |
-| TypeScript / JS | docs/agents/playbooks/typescript.md |
-| CI / GitHub Actions | docs/agents/playbooks/ci-cd.md |
-| Documentation | docs/agents/playbooks/docs.md |
-| Debugging | docs/agents/playbooks/debugging.md |
-| Security / Auth | docs/agents/playbooks/security.md |
-| GitHub Integration | docs/agents/playbooks/github-integration.md |
+| Python implementation | .instructions/playbooks/python.md |
+| TypeScript / JS | .instructions/playbooks/typescript.md |
+| CI / GitHub Actions | .instructions/playbooks/ci-cd.md |
+| Documentation | .instructions/playbooks/docs.md |
+| Debugging | .instructions/playbooks/debugging.md |
+| Security / Auth | .instructions/playbooks/security.md |
+| GitHub Integration | .instructions/playbooks/github-integration.md |
 
 Agents MUST load only the relevant playbook.
 
@@ -62,9 +62,9 @@ Agents MUST load only the relevant playbook.
 Agents MUST load only the contracts needed for the task.
 
 Default contracts:
-- docs/agents/contracts/task.contract.yaml
-- docs/agents/contracts/report.contract.yaml
-- docs/agents/contracts/test.contract.yaml
+- .instructions/contracts/task.contract.yaml
+- .instructions/contracts/report.contract.yaml
+- .instructions/contracts/test.contract.yaml
 
 Domain contracts are optional and task-specific.
 
@@ -77,7 +77,7 @@ All code tasks MUST complete GitHub integration after verification passes.
 Run the GitHub integrator immediately after completing a code task:
 
 ```bash
-python scripts/github_integrator.py {task_id}
+python .instructions/scripts/github_integrator.py {task_id}
 ```
 
 This single command will:
@@ -115,7 +115,7 @@ export GITHUB_TOKEN=ghp_your_token_here
 
 Verify authentication:
 ```bash
-python scripts/check_github_auth.py --verbose
+python .instructions/scripts/check_github_auth.py --verbose
 ```
 
 ### Skip Integration
@@ -123,7 +123,7 @@ python scripts/check_github_auth.py --verbose
 To complete a task without GitHub integration:
 
 ```bash
-python scripts/github_integrator.py T001 --skip-pr
+python .instructions/scripts/github_integrator.py T001 --skip-pr
 ```
 
 This creates the Issue only (no PR). Useful for tracking tasks that don't need code changes.
@@ -171,10 +171,10 @@ A code task is only complete when:
 
 ### Related Files
 
-- **Playbook**: `docs/agents/playbooks/github-integration.md`
-- **Contract**: `docs/agents/contracts/github-integration.contract.yaml`
-- **Integrator**: `scripts/github_integrator.py`
-- **Auth Check**: `scripts/check_github_auth.py`
+- **Playbook**: `.instructions/playbooks/github-integration.md`
+- **Contract**: `.instructions/contracts/github-integration.contract.yaml`
+- **Integrator**: `.instructions/scripts/github_integrator.py`
+- **Auth Check**: `.instructions/scripts/check_github_auth.py`
 - **Workflow**: `.github/workflows/post-task-integration.yml`
-- **PR Template**: `.github/PULL_REQUEST_TEMPLATE.md`
-- **Issue Template**: `.github/ISSUE_TEMPLATE/agent_task.md`
+- **PR Template**: `.instructions/templates/PULL_REQUEST_TEMPLATE.md`
+- **Issue Template**: `.instructions/templates/agent_task.md`

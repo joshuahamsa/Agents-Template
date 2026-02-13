@@ -17,12 +17,12 @@ changes_made:
   - Added None check before len(summary)
   - Fixed Optional type handling
 files_modified:
-  - path: scripts/validate_agent_report.py
+  - path: .instructions/scripts/validate_agent_report.py
     description: Fixed type errors
 verification:
   commands_run:
-    - mypy scripts/validate_agent_report.py
-    - python scripts/validate_agent_report.py .agent/reports/
+    - mypy .instructions/scripts/validate_agent_report.py
+    - python .instructions/scripts/validate_agent_report.py .agent/reports/
   results:
     - No type errors
     - Validation works correctly

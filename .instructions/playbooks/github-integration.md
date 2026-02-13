@@ -16,7 +16,7 @@ This playbook orchestrates the automated creation of GitHub Issues, Pull Request
 
 ```bash
 # Run after task completion
-python scripts/github_integrator.py T001
+python .instructions/scripts/github_integrator.py T001
 
 # The script will:
 # 1. Check GitHub authentication
@@ -141,7 +141,7 @@ Closes #42
 - **Branch**: `feature/T001-description`
 - **Target**: Default branch (main/master)
 - **Title**: Same as issue: `[T001] Task Title`
-- **Template**: `.github/PULL_REQUEST_TEMPLATE.md`
+- **Template**: `.instructions/templates/PULL_REQUEST_TEMPLATE.md`
 - **Reviewers**: Auto-assigned from CODEOWNERS
 
 **PR Body Auto-populated with:**
@@ -229,7 +229,7 @@ gh pr create --title "[T001] Task Title" \
              --body "Closes #{issue_number}"
 
 # Update ledger manually, then validate
-python scripts/validate_agent_linkage.py
+python .instructions/scripts/validate_agent_linkage.py
 ```
 
 ## Success Criteria
@@ -258,7 +258,7 @@ gh pr view {pr_number}
 cat .agent/ledger.yaml | grep -A5 "id: T001"
 
 # Validate linkage
-python scripts/validate_agent_linkage.py
+python .instructions/scripts/validate_agent_linkage.py
 ```
 
 ## Troubleshooting
@@ -290,13 +290,13 @@ Create `.github/CODEOWNERS` file or the script will skip auto-assignment:
 After completing Python task:
 1. Run tests: `pytest`
 2. Run linter: `ruff check .`
-3. Run integrator: `python scripts/github_integrator.py T001`
+3. Run integrator: `python .instructions/scripts/github_integrator.py T001`
 
 ### TypeScript Playbook
 After completing TypeScript task:
 1. Run tests: `npm test`
 2. Run typecheck: `tsc --noEmit`
-3. Run integrator: `python scripts/github_integrator.py T001`
+3. Run integrator: `python .instructions/scripts/github_integrator.py T001`
 
 ### CI/CD Playbook
 Integration is automatic when:
@@ -316,9 +316,9 @@ Integration is automatic when:
 
 ## Related Files
 
-- Contract: `docs/agents/contracts/github-integration.contract.yaml`
-- Script: `scripts/github_integrator.py`
-- Helper: `scripts/check_github_auth.py`
+- Contract: `.instructions/contracts/github-integration.contract.yaml`
+- Script: `.instructions/scripts/github_integrator.py`
+- Helper: `.instructions/scripts/check_github_auth.py`
 - Workflow: `.github/workflows/post-task-integration.yml`
-- Template PR: `.github/PULL_REQUEST_TEMPLATE.md`
-- Template Issue: `.github/ISSUE_TEMPLATE/agent_task.md`
+- Template PR: `.instructions/templates/PULL_REQUEST_TEMPLATE.md`
+- Template Issue: `.instructions/templates/agent_task.md`

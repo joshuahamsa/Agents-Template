@@ -4,7 +4,7 @@ Validate linkage between tasks and reports.
 Ensures every task has a corresponding report and vice versa.
 
 Usage:
-  python scripts/validate_agent_linkage.py
+  python .instructions/scripts/validate_agent_linkage.py
 """
 
 from __future__ import annotations

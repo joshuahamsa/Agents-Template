@@ -7,7 +7,7 @@ summary:
 acceptance_criteria_results:
   - criterion: All required directories exist
     passed: true
-    evidence: ls -la shows src/, tests/, scripts/, docs/
+    evidence: ls -la shows src/, tests/, .instructions/, .agent/
   - criterion: Contract files are valid YAML
     passed: true
     evidence: yamllint passed on all contract files
@@ -23,12 +23,12 @@ files_modified:
     description: Application source directory
   - path: tests/
     description: Test directory
-  - path: docs/agents/contracts/
+  - path: .instructions/contracts/
     description: Contract definitions
 verification:
   commands_run:
     - find . -type d -name src
-    - python -c "import yaml; yaml.safe_load(open('docs/agents/contracts/task.contract.yaml'))"
+    - python -c "import yaml; yaml.safe_load(open('.instructions/contracts/task.contract.yaml'))"
   results:
     - Directories exist
     - YAML parses successfully

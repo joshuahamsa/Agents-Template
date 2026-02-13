@@ -25,7 +25,7 @@ jobs:
       - name: Validate task contracts
         run: |
           if [ -d ".agent/tasks" ]; then
-            python scripts/validate_agent_task.py .agent/tasks/
+            python .instructions/scripts/validate_agent_task.py .agent/tasks/
           else
             echo "No tasks directory found, skipping task validation"
           fi
@@ -33,11 +33,11 @@ jobs:
       - name: Validate report contracts
         run: |
           if [ -d ".agent/reports" ]; then
-            python scripts/validate_agent_report.py .agent/reports/
+            python .instructions/scripts/validate_agent_report.py .agent/reports/
           else
             echo "No reports directory found, skipping report validation"
           fi
 
       - name: Validate task/report linkage
         run: |
-          python scripts/validate_agent_linkage.py
+          python .instructions/scripts/validate_agent_linkage.py

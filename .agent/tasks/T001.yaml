@@ -16,6 +16,6 @@ acceptance_criteria:
   - Contract files are valid YAML
   - Scripts can be executed
 routing:
-  playbook: docs/agents/playbooks/_template.md
+  playbook: .instructions/playbooks/_template.md
   contracts:
-    - docs/agents/contracts/task.contract.yaml
+    - .instructions/contracts/task.contract.yaml

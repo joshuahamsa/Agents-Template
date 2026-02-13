@@ -5,9 +5,9 @@ Returns 0 if authenticated with write access, 1 otherwise.
 Provides helpful instructions if authentication is missing.
 
 Usage:
-  python scripts/check_github_auth.py
-  python scripts/check_github_auth.py --verbose
-  python scripts/check_github_auth.py --ci
+  python .instructions/scripts/check_github_auth.py
+  python .instructions/scripts/check_github_auth.py --verbose
+  python .instructions/scripts/check_github_auth.py --ci
 
 Exit codes:
   0 - Authenticated with write access
@@ -134,7 +134,7 @@ Or save to .env.local (gitignored):
   echo "GITHUB_TOKEN=ghp_your_token_here" >> .env.local
 
 Verify Authentication:
-  python scripts/check_github_auth.py --verbose
+  python .instructions/scripts/check_github_auth.py --verbose
 
 Skip Integration:
 ─────────────────
@@ -144,7 +144,7 @@ If you prefer not to integrate with GitHub, you can:
 3. Update the agent ledger manually
 
 To skip GitHub integration for a specific task:
-  python scripts/github_integrator.py T001 --skip-pr
+  python .instructions/scripts/github_integrator.py T001 --skip-pr
 """
     return instructions
 

@@ -16,8 +16,8 @@ acceptance_criteria:
   - Scripts check required fields
   - Scripts return proper exit codes
 routing:
-  playbook: docs/agents/playbooks/python.md
+  playbook: .instructions/playbooks/python.md
   contracts:
-    - docs/agents/contracts/task.contract.yaml
-    - docs/agents/contracts/report.contract.yaml
-    - docs/agents/contracts/validation.contract.yaml
+    - .instructions/contracts/task.contract.yaml
+    - .instructions/contracts/report.contract.yaml
+    - .instructions/contracts/validation.contract.yaml

@@ -3,8 +3,8 @@
 Validate sub-agent report YAML files against the repo's report contract.
 
 Usage:
-  python scripts/validate_agent_report.py reports/T123.report.yaml
-  python scripts/validate_agent_report.py reports/
+  python .instructions/scripts/validate_agent_report.py reports/T123.report.yaml
+  python .instructions/scripts/validate_agent_report.py reports/
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ except ImportError as e:
     raise
 
 
-CONTRACT_PATH = Path("docs/agents/contracts/report.contract.yaml")
+CONTRACT_PATH = Path(".instructions/contracts/report.contract.yaml")
 
 
 def _is_list_of_str(x: Any) -> bool:
@@ -119,7 +119,7 @@ def main(argv: list[str]) -> int:
         return _fail(f"Contract not found at {CONTRACT_PATH}")
 
     if len(argv) != 2:
-        return _fail("Usage: python scripts/validate_agent_report.py <report.yaml or reports_dir>")
+        return _fail("Usage: python .instructions/scripts/validate_agent_report.py <report.yaml or reports_dir>")
 
     target = Path(argv[1])
     if not target.exists():

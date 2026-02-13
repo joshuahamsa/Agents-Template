@@ -57,7 +57,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           echo "Running integration for task: ${{ steps.detect.outputs.task_id }}"
-          python scripts/github_integrator.py ${{ steps.detect.outputs.task_id }} --ci-mode
+          python .instructions/scripts/github_integrator.py ${{ steps.detect.outputs.task_id }} --ci-mode
           
       - name: Validate Ledger Updated
         if: steps.detect.outputs.task_id != ''

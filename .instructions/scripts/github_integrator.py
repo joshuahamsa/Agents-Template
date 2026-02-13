@@ -4,9 +4,9 @@ GitHub integration automation for agent tasks.
 Creates issues, PRs, and updates project boards after task completion.
 
 Usage:
-  python scripts/github_integrator.py T001                    # Full integration
-  python scripts/github_integrator.py T001 --skip-pr         # Issue only
-  python scripts/github_integrator.py T001 --ci-mode         # Non-interactive
+  python .instructions/scripts/github_integrator.py T001                    # Full integration
+  python .instructions/scripts/github_integrator.py T001 --skip-pr         # Issue only
+  python .instructions/scripts/github_integrator.py T001 --ci-mode         # Non-interactive
 
 Environment:
   GITHUB_TOKEN        - Personal access token with repo, workflow scopes
@@ -41,7 +41,7 @@ except ImportError:
 TASKS_DIR = Path(".agent/tasks")
 REPORTS_DIR = Path(".agent/reports")
 LEDGER_PATH = Path(".agent/ledger.yaml")
-CONTRACT_PATH = Path("docs/agents/contracts/github-integration.contract.yaml")
+CONTRACT_PATH = Path(".instructions/contracts/github-integration.contract.yaml")
 
 
 @dataclass

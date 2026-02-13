@@ -5,7 +5,7 @@ context: |
   The validate_agent_report.py script has type errors
   related to Optional types and len() calls.
 inputs:
-  - scripts/validate_agent_report.py
+  - .instructions/scripts/validate_agent_report.py
   - Type checker output
 outputs:
   - Fixed type errors
@@ -14,6 +14,6 @@ acceptance_criteria:
   - Script functionality preserved
   - Tests pass
 routing:
-  playbook: docs/agents/playbooks/debugging.md
+  playbook: .instructions/playbooks/debugging.md
   contracts:
-    - docs/agents/contracts/validation.contract.yaml
+    - .instructions/contracts/validation.contract.yaml
